@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
-
   user = User.create(name: 'Theodoraldo', photo: 'photo_url', posts_counter: 0, bio: 'A programmer from Ghana.')
 
   describe 'validations' do
@@ -40,24 +39,25 @@ RSpec.describe 'Users', type: :request do
 
   describe '#recent_posts methods checked' do
     it 'returns the three most recent posts' do
-      userA = User.create(name: 'Boat', photo: 'photo_url', posts_counter: 0, bio: 'A programmer from Ghana.')
-      post1 = Post.create(author: userA, title: 'Hey', text: 'This is my first post', created_at: 3.days.ago)
-      post2 = Post.create(author: userA, title: 'Hello', text: 'This is my second post', created_at: 2.days.ago)
-      post3 = Post.create(author: userA, title: 'Hey there', text: 'This is my third post', created_at: 1.day.ago)
-      post4 = Post.create(author: userA, title: 'Hello there', text: 'This is my fourth post', created_at: Time.current)
-     
-      recent_post = userA.recent_posts.to_a
-      expect(recent_post).to eq([post4, post3, post2])
+      user_a = User.create(name: 'Boat', photo: 'photo_url', posts_counter: 0, bio: 'A programmer from Ghana.')
+      Post.create(author: user_a, title: 'Hey', text: 'This is my first post', created_at: 3.days.ago)
+      post_two = Post.create(author: user_a, title: 'Hello', text: 'This is my second post', created_at: 2.days.ago)
+      post_three = Post.create(author: user_a, title: 'Hey there', text: 'This is my third post', created_at: 1.day.ago)
+      post_four = Post.create(author: user_a, title: 'Hello there', text: 'This is my fourth post',
+                              created_at: Time.current)
+
+      recent_post = user_a.recent_posts.to_a
+      expect(recent_post).to eq([post_four, post_three, post_two])
     end
 
     it 'returns the specified number of recent posts' do
-      userB = User.create(name: 'Ernesto', photo: 'photo_url', posts_counter: 0, bio: 'A programmer from Ghana.')
-      post5 = Post.create(author: userB, title: 'Hey', text: 'This is my fifth post', created_at: 3.days.ago)
-      post6 = Post.create(author: userB, title: 'Hello', text: 'This is my sixth post', created_at: 2.days.ago)
-      post7 = Post.create(author: userB, title: 'Hey there', text: 'This is my seventh post', created_at: 1.day.ago)
-      post8 = Post.create(author: userB, title: 'Hello there', text: 'This is my eighth post', created_at: Time.current)
-     
-      recent_post = userB.recent_posts(4)
+      user_b = User.create(name: 'Ernesto', photo: 'photo_url', posts_counter: 0, bio: 'A programmer from Ghana.')
+      Post.create(author: user_b, title: 'Hey', text: 'This is my fifth post', created_at: 3.days.ago)
+      Post.create(author: user_b, title: 'Hello', text: 'This is my sixth post', created_at: 2.days.ago)
+      Post.create(author: user_b, title: 'Hey there', text: 'This is my seventh post', created_at: 1.day.ago)
+      Post.create(author: user_b, title: 'Hello there', text: 'This is my eighth post', created_at: Time.current)
+
+      recent_post = user_b.recent_posts(4)
       expect(recent_post.size).to eq(4)
     end
   end

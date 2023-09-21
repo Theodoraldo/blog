@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Posts', type: :request do
-
   user = User.create(name: 'Theodoraldo', photo: 'photo_url', posts_counter: 0, bio: 'Teacher from Ghana.')
   post = Post.create(title: 'Test', text: 'Post content', comments_counter: 0, likes_counter: 0, author_id: user.id)
 
@@ -43,24 +42,25 @@ RSpec.describe 'Posts', type: :request do
     it 'returns the three most recent comments' do
       user = User.create(name: 'Theodore', photo: 'photo_url', posts_counter: 0, bio: 'A programmer from Ghana.')
       first_post = Post.create(author: user, title: 'Hi, am back', text: 'This is my post', created_at: Time.current)
-      comment1 = Comment.create(post: first_post, author: user, text: 'Comment one!')
-      comment2 = Comment.create(post: first_post, author: user, text: 'Comment two!')
-      comment3 = Comment.create(post: first_post, author: user, text: 'Comment three!')
-      comment4 = Comment.create(post: first_post, author: user, text: 'Comment four!')
-      comment5 = Comment.create(post: first_post, author: user, text: 'Comment five!')
-      comment6 = Comment.create(post: first_post, author: user, text: 'Comment six!')
+      Comment.create(post: first_post, author: user, text: 'Comment one!')
+      comment_two = Comment.create(post: first_post, author: user, text: 'Comment two!')
+      comment_three = Comment.create(post: first_post, author: user, text: 'Comment three!')
+      comment_four = Comment.create(post: first_post, author: user, text: 'Comment four!')
+      comment_five = Comment.create(post: first_post, author: user, text: 'Comment five!')
+      comment_six = Comment.create(post: first_post, author: user, text: 'Comment six!')
 
       recent_comment = first_post.recent_comments_post.to_a
-      expect(recent_comment).to eq([comment6, comment5, comment4, comment3, comment2])
+      expect(recent_comment).to eq([comment_six, comment_five, comment_four, comment_three, comment_two])
     end
 
     it 'returns the specified number of recent comments' do
-      user1 = User.create(name: 'Ernesto', photo: 'photo_url', posts_counter: 0, bio: 'A programmer from Ghana.')
-      last_post = Post.create(author: user1, title: 'Hello there are you OK', text: 'This is my eighth post', created_at: Time.current)
-      comment1 = Comment.create(post: last_post, author: user1, text: 'Comment one!')
-      comment2 = Comment.create(post: last_post, author: user1, text: 'Comment two!')
-      comment3 = Comment.create(post: last_post, author: user1, text: 'Comment three!')
-      comment4 = Comment.create(post: last_post, author: user1, text: 'Comment four!')
+      user_one = User.create(name: 'Ernesto', photo: 'photo_url', posts_counter: 0, bio: 'A programmer from Ghana.')
+      last_post = Post.create(author: user_one, title: 'Hello there are you OK', text: 'This is my eighth post',
+                              created_at: Time.current)
+      Comment.create(post: last_post, author: user_one, text: 'Comment one!')
+      Comment.create(post: last_post, author: user_one, text: 'Comment two!')
+      Comment.create(post: last_post, author: user_one, text: 'Comment three!')
+      Comment.create(post: last_post, author: user_one, text: 'Comment four!')
 
       recent_comment = last_post.recent_comments_post(2)
       expect(recent_comment.size).to eq(2)
@@ -68,11 +68,12 @@ RSpec.describe 'Posts', type: :request do
   end
 
   describe 'update_posts_counter' do
-    user2 = User.create(name: 'Microverse  Post', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Testing experts')
-    subject = Post.create(title: 'test', text: 'post content', author: user2, comments_counter: 0, likes_counter: 0)
+    user_two = User.create(name: 'Microverse  Post', photo: 'https://unsplash.com/photos/F_-0BxGuVvo',
+                           bio: 'Testing experts')
+    subject = Post.create(title: 'test', text: 'post content', author: user_two, comments_counter: 0, likes_counter: 0)
 
     it 'increments the post counter on the associated post' do
-      expect { subject.send(:update_user_post_count) }.to change { user2.reload.posts_counter }.by(1)
+      expect { subject.send(:update_user_post_count) }.to change { user_two.reload.posts_counter }.by(1)
     end
   end
 end
