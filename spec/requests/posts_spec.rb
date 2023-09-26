@@ -116,7 +116,7 @@ RSpec.describe 'Posts', type: :request do
       get user_post_path(id: post_w, user_id: user_w)
       expect(response.body).to include('Detailed posts for a user')
     end
-    
+
     it 'should render the show template' do
       get user_post_path(id: post_w, user_id: user_w)
       expect(response).to render_template(:show)

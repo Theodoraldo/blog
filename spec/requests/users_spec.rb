@@ -88,7 +88,7 @@ RSpec.describe 'Users', type: :request do
       expect(response.body).to include('List of all users')
     end
   end
-  
+
   describe 'GET /users#show' do
     user_z = User.create(name: 'Peprah', photo: 'photo_url', posts_counter: 0, bio: 'A designer from Ghana.')
     it 'if response status code is correct for user show page' do
