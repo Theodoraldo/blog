@@ -103,6 +103,25 @@ RSpec.describe 'Posts', type: :request do
       expect(response.body).to include('List of all posts')
     end
   end
+
+  describe 'GET /posts#show' do
+    user_w = User.create(name: 'Theodoraldo', photo: 'photo_url', posts_counter: 0, bio: 'Teacher from Ghana.')
+    post_w = Post.create(title: 'Test', text: 'Post content', comments_counter: 0, likes_counter: 0, author: user_w)
+    it 'should check if respose status code is correct' do
+      get user_post_path(id: post_w, user_id: user_w)
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'check if the response body includes correct placeholder text' do
+      get user_post_path(id: post_w, user_id: user_w)
+      expect(response.body).to include('Detailed posts for a user')
+    end
+    
+    it 'should render the show template' do
+      get user_post_path(id: post_w, user_id: user_w)
+      expect(response).to render_template(:show)
+    end
+  end
   #============================================================================================================
   # describe controller test features ends Here
   #============================================================================================================
