@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Users', type: :request do
+  #============================================================================================================
+  # describe model test features begins Here
+  #============================================================================================================
   user = User.create(name: 'Theodoraldo', photo: 'photo_url', posts_counter: 0, bio: 'A programmer from Ghana.')
 
   describe 'validations' do
@@ -61,4 +64,48 @@ RSpec.describe 'Users', type: :request do
       expect(recent_post.size).to eq(4)
     end
   end
+  #============================================================================================================
+  # describe model test features ends Here
+  #============================================================================================================
+
+  #============================================================================================================
+  # describe controller test features begins Here
+  #============================================================================================================
+  describe 'GET /users#index' do
+    it 'if response status code is correct for users index page' do
+      get users_path
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'should render the index template' do
+      get users_path
+      expect(response).to render_template(:index)
+    end
+
+    it 'check if the response body includes text(index) for index page' do
+      get users_path
+      expect(response.body).to include('List of all users')
+    end
+  end
+
+  describe 'GET /users#show' do
+    user_z = User.create(name: 'Peprah', photo: 'photo_url', posts_counter: 0, bio: 'A designer from Ghana.')
+    it 'if response status code is correct for user show page' do
+      get user_path(id: user_z)
+      expect(response).to have_http_status(200)
+    end
+
+    it 'check if the response body includes text(show) for user show page' do
+      get user_path(id: user_z)
+      expect(response.body).to include('All posts by a user')
+    end
+
+    it 'should render the show template' do
+      get user_path(id: user_z)
+      expect(response).to render_template(:show)
+    end
+  end
+  #============================================================================================================
+  # describe controller test features ends Here
+  #============================================================================================================
 end
