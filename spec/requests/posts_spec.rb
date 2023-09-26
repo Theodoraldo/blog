@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Posts', type: :request do
+  #============================================================================================================
+  # describe model test features begins Here
+  #============================================================================================================
   user = User.create(name: 'Theodoraldo', photo: 'photo_url', posts_counter: 0, bio: 'Teacher from Ghana.')
   post = Post.create(title: 'Test', text: 'Post content', comments_counter: 0, likes_counter: 0, author_id: user.id)
 
@@ -76,4 +79,31 @@ RSpec.describe 'Posts', type: :request do
       expect { subject.send(:update_user_post_count) }.to change { user_two.reload.posts_counter }.by(1)
     end
   end
+  #============================================================================================================
+  # describe model test features ends Here
+  #============================================================================================================
+
+  #============================================================================================================
+  # describe controller test features begins Here
+  #============================================================================================================
+  describe 'GET /posts#index' do
+    user_m = User.create(name: 'Theodoraldo', photo: 'photo_url', posts_counter: 0, bio: 'Teacher from Ghana.')
+    it 'if response status code is correct for posts index' do
+      get user_posts_path(user_id: user_m)
+      expect(response).to have_http_status(:success)
+    end
+
+    it 'should render the index template for post' do
+      get user_posts_path(user_id: user_m)
+      expect(response).to render_template(:index)
+    end
+
+    it 'check if the response body includes text(index) for post' do
+      get user_posts_path(user_id: user_m)
+      expect(response.body).to include('List of all posts')
+    end
+  end
+  #============================================================================================================
+  # describe controller test features ends Here
+  #============================================================================================================
 end
