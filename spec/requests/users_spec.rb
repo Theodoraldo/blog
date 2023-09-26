@@ -88,6 +88,24 @@ RSpec.describe 'Users', type: :request do
       expect(response.body).to include('List of all users')
     end
   end
+  
+  describe 'GET /users#show' do
+    user_z = User.create(name: 'Peprah', photo: 'photo_url', posts_counter: 0, bio: 'A designer from Ghana.')
+    it 'if response status code is correct for user show page' do
+      get user_path(id: user_z)
+      expect(response).to have_http_status(200)
+    end
+
+    it 'check if the response body includes text(show) for user show page' do
+      get user_path(id: user_z)
+      expect(response.body).to include('All posts by a user')
+    end
+
+    it 'should render the show template' do
+      get user_path(id: user_z)
+      expect(response).to render_template(:show)
+    end
+  end
   #============================================================================================================
   # describe controller test features ends Here
   #============================================================================================================
