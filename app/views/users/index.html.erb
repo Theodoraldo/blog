@@ -1,1 +1,16 @@
-<h1>List of all users</h1>
+<h1 class="title is-flex is-justify-content-center has-text-grey-darker">List of all users</h1>
+
+<div class="container" style="width: 45%;">
+  <% @users.each do |user| %>
+      <div class="is-flex my-6 is-justify-content-center">
+        <figure class="image is-128x128">
+          <img class="is-rounded" src="<%= user.photo %>" alt="user photo">
+        </figure>
+        <div class="mx-3 column has-background-white radius-all">
+          <p class="title is-5 has-text-grey">Name: <%= user.name %></p>
+          <p class="title is-6 is-pulled-right has-text-success has-background-success-light p-1">Number of posts: <%= user.posts_counter %></p>
+          <%= link_to "View profile", user_path(user), class: "button is-link is-light is-rounded is-small" %>
+        </div>
+      </div>
+  <% end %>
+</div>
