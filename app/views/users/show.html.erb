@@ -1,1 +1,32 @@
-<h1>All posts by a user</h1>
+<h1 class="title is-flex is-justify-content-center has-text-grey-darker">All posts by a user</h1>
+
+<div class="is-flex mt-6 mb-4 is-justify-content-center">
+  <figure class="image is-128x128">
+    <img class="is-rounded" src="<%= @user.photo %>" alt="user photo">
+  </figure>
+  <div class="mx-3 box is-shadowless has-background-light" style="width: 35%;">
+    <p class="title is-5 has-text-grey">Name: <%= @user.name %></p>
+    <p class="title is-6 is-pulled-right has-text-success has-background-success-light p-1">Number of posts: <%= @user.posts_counter %></p>
+  </div>
+</div>
+
+<div class="container" style="width: 45%;">
+  <div class="column has-background-light radius-top">
+    <h2 class="has-text-link">Bio</h2>
+    <%= @user.bio %>
+  </div>
+
+  <% @recent_posts.each do |post| %>
+    <div class="column has-background-white mb-5 radius-buttom">
+      <p class="mb-1 has-text-link"><%= post.title %></p>
+      <%= post.limit_sentence(post.text) %>
+      <div class="has-text-link is-flex is-justify-content-end is-italic">
+      Comments : <%= post.comments_counter%>, Likes : <%= post.likes_counter%> 
+      </div>
+    </div>
+  <%end%>
+
+  <div class="is-flex is-justify-content-center mt-1">
+    <%= link_to "See all posts", user_posts_path(@user), class: "button is-info is-light is-outlined is-rounded my-3" %>
+  </div>
+</div>
