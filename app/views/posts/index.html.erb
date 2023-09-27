@@ -12,6 +12,10 @@
   </div>
 </div>
 
+<div class=" container is-flex is-justify-content-end mb-4">
+  <%= link_to "New Post", new_post_path, class: "button is-info" %>
+</div>
+
 <% @posts.each do |post| %>
   <div class="column has-background-light radius-top">
     <p class="mb-1 has-text-link"><%= post.title %></p>

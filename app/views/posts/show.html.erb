@@ -7,6 +7,10 @@
       <div class="has-text-link is-size-6">Comments : <%= @post.comments_counter%>, Likes : <%= @post.likes_counter%></div>
     </div>
     <%= @post.text %>
+
+    <%= form_with scope: :like, url: post_likes_path(@post) do |form| %>
+      <%= form.submit "Like Post", class: "button is-small is-info is-light is-outlined is-rounded mt-1" %>
+    <% end %>
   </div>
 
     <div class="column has-background-white mb-5 radius-buttom">
@@ -14,8 +18,22 @@
       <div class="is-italic"><strong><%= comment.author.name %></strong>  : <%= comment.text %></div>
     <% end %>
   </div>
+  
+  <%= form_with scope: :comment, url: post_comments_path(@post) do |form| %>
+    <div class="mb-3">
+      <%= form.text_area :text , placeholder: "Type your comment here ...", class: "textarea is-bordered" %>
+    </div>
+    <div>
+      <%= form.submit class: "button is-info" %>
+    </div>
+  <% end %>
 </div>
 
 <div class="is-flex is-justify-content-center">
   <%= link_to "Back to all posts", user_posts_path(@post.author), class: "button is-info is-light is-outlined is-rounded my-3" %>
+</div>
+
+<div class="is-flex is-justify-content-center">
+  <span class="subtitle has-text-success-dark"><%= notice %></span>
+  <span class="subtitle has-text-danger-dark"><%= alert %></span>
 </div>

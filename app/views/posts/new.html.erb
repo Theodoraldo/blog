@@ -1,0 +1,32 @@
+<h1 class="title is-flex is-justify-content-center has-text-grey-darker">Create a Post</h1>
+
+
+<div class="container" style="width: 45%;">
+  <%= form_with scope: :post, url: posts_path do |form| %>
+    <% if @post.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+        <ul>
+          <% @post.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-3">
+      <%= form.label :title, class: "label" %>
+      <%= form.text_field :title, class: "input" %>
+    </div>
+
+     <div class="mb-3">
+      <%= form.label :text, class: "label" %>
+      <%= form.text_area :text , class: "textarea is-bordered" %>
+    </div>
+
+    <div>
+      <%= form.submit class: "button is-info" %>
+    </div>
+  <% end %>
+</div>
