@@ -1,1 +1,21 @@
-<h1>Detailed posts for a user</h1>
+<h1 class="title is-flex is-justify-content-center has-text-grey-darker">Detailed posts for a user</h1>
+
+<div class="container mt-3" style="width: 45%;">
+  <div class="column has-background-light radius-top">
+    <div class="mt-1 mb-2 is-flex is-justify-content-space-between is-align-items-center is-italic">
+      <p class="has-text-link"><%= @post.title %> by <%= @post.author.name%></p>
+      <div class="has-text-link is-size-6">Comments : <%= @post.comments_counter%>, Likes : <%= @post.likes_counter%></div>
+    </div>
+    <%= @post.text %>
+  </div>
+
+    <div class="column has-background-white mb-5 radius-buttom">
+      <% @comments.each do |comment| %>
+      <div class="is-italic"><strong><%= comment.author.name %></strong>  : <%= comment.text %></div>
+    <% end %>
+  </div>
+</div>
+
+<div class="is-flex is-justify-content-center">
+  <%= link_to "Back to all posts", user_posts_path(@post.author), class: "button is-info is-light is-outlined is-rounded my-3" %>
+</div>
