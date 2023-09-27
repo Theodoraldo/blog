@@ -1,1 +1,36 @@
-<h1>List of all posts</h1>
+<h1 class="title is-flex is-justify-content-center has-text-grey-darker">List of all posts</h1>
+
+<div class="container" style="width: 45%;">
+
+<div class="is-flex mt-4 mb-4">
+  <figure class="image is-128x128">
+    <img class="is-rounded" src="<%= @user.photo %>" alt="user photo">
+  </figure>
+  <div class="column ml-3 has-background-light radius-all">
+    <p class="title is-5 has-text-grey">Name: <%= @user.name %></p>
+    <span class="title is-6 has-text-success has-background-success-light p-1 is-pulled-right">Number of posts: <%= @user.posts_counter %></span>
+  </div>
+</div>
+
+<% @posts.each do |post| %>
+  <div class="column has-background-light radius-top">
+    <p class="mb-1 has-text-link"><%= post.title %></p>
+    <%= post.limit_sentence(post.text) %>
+    <div class="mt-1 is-flex is-justify-content-space-between is-align-items-center is-italic">
+      <%= link_to "Show details", user_post_path(@user, post), class: "button is-link is-light is-rounded is-small is-outlined" %>
+      <div class="has-text-link is-size-6">Comments : <%= post.comments_counter%>, Likes : <%= post.likes_counter%></div>
+    </div>
+  </div>
+
+  
+  <div class="column has-background-white mb-4 radius-buttom">
+    <% post.recent_comments_post.each do |comment| %>
+      <div class="is-italic"><strong><%= comment.author.name %></strong>  : <%= comment.text %></div>
+    <% end %>
+  </div> 
+<%end%>
+
+<div class="is-flex is-justify-content-center">
+  <%= link_to "Pagination", user_posts_path(@user), class: "button is-info is-light is-outlined is-rounded my-3" %>
+</div>
+</div>
