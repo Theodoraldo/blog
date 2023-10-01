@@ -4,7 +4,7 @@ RSpec.describe 'Posts', type: :request do
   #============================================================================================================
   # describe model test features begins Here
   #============================================================================================================
-  user = User.create(name: 'Theodoraldo', photo: 'photo_url', posts_counter: 0, bio: 'Teacher from Ghana.')
+  user = User.create(name: 'Theodoraldo', photo: 'http://via.placeholder.com/250x250', posts_counter: 0, bio: 'Teacher from Ghana.')
   post = Post.create(title: 'Test', text: 'Post content', comments_counter: 0, likes_counter: 0, author_id: user.id)
 
   describe 'validations' do
@@ -43,7 +43,7 @@ RSpec.describe 'Posts', type: :request do
 
   describe '#recent_posts methods checked' do
     it 'returns the three most recent comments' do
-      user = User.create(name: 'Theodore', photo: 'photo_url', posts_counter: 0, bio: 'A programmer from Ghana.')
+      user = User.create(name: 'Theodore', photo: 'http://via.placeholder.com/250x250', posts_counter: 0, bio: 'A programmer from Ghana.')
       first_post = Post.create(author: user, title: 'Hi, am back', text: 'This is my post', created_at: Time.current)
       Comment.create(post: first_post, author: user, text: 'Comment one!')
       comment_two = Comment.create(post: first_post, author: user, text: 'Comment two!')
@@ -57,7 +57,7 @@ RSpec.describe 'Posts', type: :request do
     end
 
     it 'returns the specified number of recent comments' do
-      user_one = User.create(name: 'Ernesto', photo: 'photo_url', posts_counter: 0, bio: 'A programmer from Ghana.')
+      user_one = User.create(name: 'Ernesto', photo: 'http://via.placeholder.com/250x250', posts_counter: 0, bio: 'A programmer from Ghana.')
       last_post = Post.create(author: user_one, title: 'Hello there are you OK', text: 'This is my eighth post',
                               created_at: Time.current)
       Comment.create(post: last_post, author: user_one, text: 'Comment one!')
@@ -71,7 +71,7 @@ RSpec.describe 'Posts', type: :request do
   end
 
   describe 'update_posts_counter' do
-    user_two = User.create(name: 'Microverse  Post', photo: 'https://unsplash.com/photos/F_-0BxGuVvo',
+    user_two = User.create(name: 'Microverse  Post', photo: 'http://via.placeholder.com/250x250',
                            bio: 'Testing experts')
     subject = Post.create(title: 'test', text: 'post content', author: user_two, comments_counter: 0, likes_counter: 0)
 
@@ -87,7 +87,7 @@ RSpec.describe 'Posts', type: :request do
   # describe controller test features begins Here
   #============================================================================================================
   describe 'GET /posts#index' do
-    user_m = User.create(name: 'Theodoraldo', photo: 'photo_url', posts_counter: 0, bio: 'Teacher from Ghana.')
+    user_m = User.create(name: 'Theodoraldo', photo: 'http://via.placeholder.com/250x250', posts_counter: 0, bio: 'Teacher from Ghana.')
     it 'if response status code is correct for posts index' do
       get user_posts_path(user_id: user_m)
       expect(response).to have_http_status(:success)
@@ -105,7 +105,7 @@ RSpec.describe 'Posts', type: :request do
   end
 
   describe 'GET /posts#show' do
-    user_w = User.create(name: 'Theodoraldo', photo: 'photo_url', posts_counter: 0, bio: 'Teacher from Ghana.')
+    user_w = User.create(name: 'Theodoraldo', photo: 'http://via.placeholder.com/250x250', posts_counter: 0, bio: 'Teacher from Ghana.')
     post_w = Post.create(title: 'Test', text: 'Post content', comments_counter: 0, likes_counter: 0, author: user_w)
     it 'should check if respose status code is correct' do
       get user_post_path(id: post_w, user_id: user_w)

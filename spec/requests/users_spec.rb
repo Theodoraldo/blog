@@ -4,7 +4,7 @@ RSpec.describe 'Users', type: :request do
   #============================================================================================================
   # describe model test features begins Here
   #============================================================================================================
-  user = User.create(name: 'Theodoraldo', photo: 'photo_url', posts_counter: 0, bio: 'A programmer from Ghana.')
+  user = User.create(name: 'Theodoraldo', photo: 'http://via.placeholder.com/250x250', posts_counter: 0, bio: 'A programmer from Ghana.')
 
   describe 'validations' do
     it 'name should be present' do
@@ -42,7 +42,7 @@ RSpec.describe 'Users', type: :request do
 
   describe '#recent_posts methods checked' do
     it 'returns the three most recent posts' do
-      user_a = User.create(name: 'Boat', photo: 'photo_url', posts_counter: 0, bio: 'A programmer from Ghana.')
+      user_a = User.create(name: 'Boat', photo: 'http://via.placeholder.com/250x250', posts_counter: 0, bio: 'A programmer from Ghana.')
       Post.create(author: user_a, title: 'Hey', text: 'This is my first post', created_at: 3.days.ago)
       post_two = Post.create(author: user_a, title: 'Hello', text: 'This is my second post', created_at: 2.days.ago)
       post_three = Post.create(author: user_a, title: 'Hey there', text: 'This is my third post', created_at: 1.day.ago)
@@ -54,7 +54,7 @@ RSpec.describe 'Users', type: :request do
     end
 
     it 'returns the specified number of recent posts' do
-      user_b = User.create(name: 'Ernesto', photo: 'photo_url', posts_counter: 0, bio: 'A programmer from Ghana.')
+      user_b = User.create(name: 'Ernesto', photo: 'http://via.placeholder.com/250x250', posts_counter: 0, bio: 'A programmer from Ghana.')
       Post.create(author: user_b, title: 'Hey', text: 'This is my fifth post', created_at: 3.days.ago)
       Post.create(author: user_b, title: 'Hello', text: 'This is my sixth post', created_at: 2.days.ago)
       Post.create(author: user_b, title: 'Hey there', text: 'This is my seventh post', created_at: 1.day.ago)
@@ -89,7 +89,7 @@ RSpec.describe 'Users', type: :request do
   end
 
   describe 'GET /users#show' do
-    user_z = User.create(name: 'Peprah', photo: 'photo_url', posts_counter: 0, bio: 'A designer from Ghana.')
+    user_z = User.create(name: 'Peprah', photo: 'http://via.placeholder.com/250x250', posts_counter: 0, bio: 'A designer from Ghana.')
     it 'if response status code is correct for user show page' do
       get user_path(id: user_z)
       expect(response).to have_http_status(200)
