@@ -38,5 +38,21 @@ RSpec.describe 'User index page', type: :feature do
         expect(page).to have_css("img[src='#{user.photo}'][alt='user photo']")
       end
     end
+
+    it 'displays the number of post of all other users' do
+      users.each do |user|
+        expect(page).to have_content("Number of posts: #{user.posts_counter}")
+      end
+    end
+
+    it 'When I click on the first user, should be redirected to user\'s show page' do
+      click_link 'View profile', href: user_path(users[0])
+      expect(page).to have_current_path(%r{/users/\d+})
+    end
+
+    it 'When I click on the second user, should be redirected to user\'s show page' do
+      click_link 'View profile', href: user_path(users[1])
+      expect(page).to have_current_path(%r{/users/\d+})
+    end
   end
 end
