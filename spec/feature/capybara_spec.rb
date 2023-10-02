@@ -56,3 +56,75 @@ RSpec.describe 'User index page', type: :feature do
     end
   end
 end
+
+RSpec.describe 'User show page', type: :feature do
+  describe 'Should display user and their posts' do
+    user = User.create(name: 'Theodoraldo Gishun', photo: 'http://via.placeholder.com/250x250',
+                       bio: 'A programmer engineer from Ghana.')
+    let!(:posts) do
+      [
+        Post.create(title: 'Arrival', text: 'Post content 1', author: user),
+        Post.create(title: 'Departure', text: 'Post content 2', author: user)
+      ]
+    end
+
+    before do
+      visit user_path(user)
+    end
+
+    it 'Display header text' do
+      expect(page).to have_content('All posts by a user')
+    end
+
+    it 'displays the user name and their posts' do
+      expect(page).to have_content("Name: #{user.name}")
+    end
+
+    it 'displays number of posts a user has made' do
+      expect(page).to have_content("Number of posts: #{posts.count}")
+    end
+
+    it 'displays the profile picture for each user' do
+      expect(page).to have_css("img[src='#{user.photo}'][alt='user photo']")
+    end
+
+    it 'Display bio text' do
+      expect(page).to have_content('Bio')
+    end
+
+    it 'Display bio content' do
+      expect(page).to have_content(user.bio)
+    end
+
+    it 'Display first post title' do
+      expect(page).to have_content('Arrival')
+    end
+
+    it 'Display first post text' do
+      expect(page).to have_content('Post content 1')
+    end
+
+    it 'Display second post title' do
+      expect(page).to have_content('Arrival')
+    end
+
+    it 'Display second post text' do
+      expect(page).to have_content('Departure')
+    end
+
+    it 'Display count of comments and likes' do
+      posts.each do |post|
+        expect(page).to have_content("Comments : #{post.comments_counter}, Likes : #{post.likes_counter}")
+      end
+    end
+
+    it 'Display button to show all posts to a user' do
+      expect(page).to have_link('See all posts')
+    end
+
+    it 'When I click on See all posts, I am redirected to their index page' do
+      click_link 'See all posts', href: user_posts_path(user)
+      expect(page).to have_current_path(user_posts_path(user))
+    end
+  end
+end
