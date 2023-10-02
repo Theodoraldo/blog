@@ -277,3 +277,34 @@ RSpec.describe 'Post show page', type: :feature do
     end
   end
 end
+
+RSpec.describe 'New post page', type: :feature do
+  describe 'Should display and submit form,' do
+    before do
+      visit new_post_path
+    end
+
+    it 'Display header text' do
+      expect(page).to have_content('Create a Post')
+    end
+
+    it 'Whether form is rendered' do
+      expect(page).to have_selector('form')
+    end
+
+    it 'Display button to submit the post' do
+      expect(page).to have_button('Save Post')
+    end
+
+    it 'fill the form and submit it' do
+      fill_in 'Title', with: 'Test Post Title'
+      fill_in 'Text', with: 'This is the content of the test post.'
+
+      click_button 'Save Post'
+
+      expect(page).to have_current_path(%r{/users/\d+/posts/\d+})
+
+      expect(page).to have_content('Post was successfully created.')
+    end
+  end
+end
