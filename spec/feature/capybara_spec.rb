@@ -210,3 +210,70 @@ RSpec.describe 'post index page', type: :feature do
   end
 end
 
+RSpec.describe 'Post show page', type: :feature do
+  describe 'Should display post details of a user' do
+    user = User.create(name: 'Douglas Opoku', photo: 'http://via.placeholder.com/250x250',
+                       bio: 'A programmer engineer from USA.')
+    let!(:posts) do
+      Post.create(title: 'Birth rate', text: 'Post content 1', author: user)
+    end
+
+    let(:comments) do
+      Comment.create(text: 'Second comment for death rate post', author: user, post: posts)
+    end
+
+    before do
+      visit user_post_path(user, posts)
+    end
+
+    it 'Display header text' do
+      expect(page).to have_content('Detailed posts for a user')
+    end
+
+    it 'Display post title by an author' do
+      expect(page).to have_content("#{posts.title} by #{posts.author.name}")
+    end
+
+    it 'Display count of comments and likes' do
+      expect(page).to have_content("Comments : #{posts.comments_counter}, Likes : #{posts.likes_counter}")
+    end
+
+    it 'Display post text by an author' do
+      expect(page).to have_content(posts.text.to_s)
+    end
+
+    it 'Display button to like the post' do
+      expect(page).to have_button('Like Post')
+    end
+
+    it 'like the post' do
+      click_button 'Like Post'
+
+      expect(page).to have_current_path(%r{/users/\d+/posts/\d+})
+
+      expect(page).to have_content('You just liked this post')
+    end
+
+    it 'Display button to comment the post' do
+      expect(page).to have_button('Save Comment')
+    end
+
+    it 'comment the post' do
+      fill_in 'comment_text', with: 'Test comment for the post above'
+
+      click_button 'Save Comment'
+
+      expect(page).to have_current_path(%r{/users/\d+/posts/\d+})
+      expect(page).to have_content('Comment was successfully created.')
+    end
+
+    it 'Display button to go back to all posts' do
+      expect(page).to have_link('Back to all posts')
+    end
+
+    it 'Redirect to user\'s posts' do
+      click_link 'Back to all posts'
+      expect(page).to have_current_path(%r{/users/\d+/posts})
+    end
+  end
+end
