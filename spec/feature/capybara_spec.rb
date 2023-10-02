@@ -129,7 +129,6 @@ RSpec.describe 'User show page', type: :feature do
   end
 end
 
-
 RSpec.describe 'post index page', type: :feature do
   describe 'Should display user and their posts' do
     user = User.create(name: 'Emmanuella Ansah', photo: 'http://via.placeholder.com/250x250',
