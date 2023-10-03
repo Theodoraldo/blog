@@ -14,7 +14,7 @@ RSpec.describe Comment, type: :model do
   end
 
   describe 'update_comment_counter' do
-    user = User.create(name: 'Microverse  Commenter', photo: 'https://unsplash.com/photos/F_-0BxGuVvo',
+    user = User.create(name: 'Microverse  Commenter', photo: 'http://via.placeholder.com/250x250',
                        bio: 'Collaboratively')
     post = Post.create(title: 'test', text: 'post content', author: user, comments_counter: 0, likes_counter: 0)
     subject = Comment.create(post:, author: user, text: 'Hi Tom!')

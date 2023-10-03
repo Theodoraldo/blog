@@ -113,11 +113,20 @@ $ cd blog-app
 
 ## 👥 Authors <a name="authors"></a>
 
+ **Author1**
+
 👤 **Theodore Asimeng-Osei**
 
 - GitHub: [@githubhandle](https://github.com/Theodoraldo)
 - Twitter: [@twitterhandle](https://twitter.com/AsimengOse33947)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/theodoreasimeng/)
+
+👤 **Author2**
+
+**Md Sazzad Hossain**
+
+- GitHub: [@githubhandle](https://github.com/SAZZAD1Q2/)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/sazzad3y/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
