@@ -1,10 +1,10 @@
 class PostsController < ApplicationController
   def index
     @user = User.find(params[:user_id])
-    @posts = @user.posts.preload(:comments)
+    @posts = @user.posts.includes(:comments)
   end
 
-  def show
+  def showssss
     @post = Post.find(params[:id])
     @comments = @post.recent_comments_post(10)
   end
