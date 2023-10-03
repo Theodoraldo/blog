@@ -4,7 +4,7 @@ class PostsController < ApplicationController
     @posts = @user.posts.includes(:comments)
   end
 
-  def showssss
+  def shows
     @post = Post.find(params[:id])
     @comments = @post.recent_comments_post(10)
   end
