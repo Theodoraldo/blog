@@ -49,6 +49,7 @@ gem 'bootsnap', require: false
 # gem "image_processing", "~> 1.2"
 
 gem 'devise', '~> 4.9', '>= 4.9.2'
+gem 'cancancan', '~> 3.5'
 gem 'rubocop', '>= 1.0', '< 2.0'
 
 group :development, :test do
