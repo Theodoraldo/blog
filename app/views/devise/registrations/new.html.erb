@@ -1,0 +1,37 @@
+<h1 class="title has-text-grey-darker is-flex is-justify-content-center">Sign up</h1>
+
+<div class="container is-flex is-justify-content-center">
+  <div class="box" style="width: 45%;">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="field">
+        <%= f.label :name %><br />
+        <%= f.text_field :name, autofocus: true, class: "input" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :email, class: "label"  %><br />
+        <%= f.email_field :email, autocomplete: "email", class: "input" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password, class: "label"  %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "new-password", class: "input" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password_confirmation, class: "label"  %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Sign up", class: "button is-info" %>
+      </div>
+    <% end %>
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
