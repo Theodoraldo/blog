@@ -17,6 +17,8 @@
       <% @comments.each do |comment| %>
       <div class="is-italic"><strong><%= comment.author.name %></strong>  : <%= comment.text %></div>
     <% end %>
+
+    <%= link_to "Delete this Posts", post_path(@post), method: :delete, data: { "turbo-method": :delete }, class: "button is-small is-danger is-light is-rounded my-3" %>
   </div>
   
   <%= form_with scope: :comment, url: post_comments_path(@post) do |form| %>
