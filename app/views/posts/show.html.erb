@@ -18,12 +18,15 @@
       <div class="is-flex is-justify-content-space-between">
         <span class="is-italic"><strong><%= comment.author.name %></strong>  : <%= comment.text %></span>
         <span>
-        <%= link_to "", comment_path(comment.id), method: :delete, data: { "turbo-method": :delete }, class: "delete is-small" %>
+        <% if can? :destroy, comment %>
+          <%= link_to "", comment_path(comment.id), method: :delete, data: { "turbo-method": :delete }, class: "delete is-small" %>
+        <% end %>
       </span>
       </div>
     <% end %>
-
-    <%= link_to "Delete this Posts", post_path(@post), method: :delete, data: { "turbo-method": :delete }, class: "button is-small is-danger is-light is-rounded my-3" %>
+    <% if can? :destroy, @post %>
+     <%= link_to "Delete this Posts", post_path(@post), method: :delete, data: { "turbo-method": :delete }, class: "button is-small is-danger is-light is-rounded my-3" %>
+    <% end %>
   </div>
   
   <%= form_with scope: :comment, url: post_comments_path(@post) do |form| %>
