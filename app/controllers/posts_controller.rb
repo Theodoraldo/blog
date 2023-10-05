@@ -4,7 +4,7 @@ class PostsController < ApplicationController
     @posts = @user.posts.includes(:comments)
   end
 
-  def shows
+  def show
     @post = Post.find(params[:id])
     @comments = @post.recent_comments_post(10)
   end
@@ -22,6 +22,16 @@ class PostsController < ApplicationController
       else
         format.html { render action: 'new' }
       end
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @user = @post.author
+    if @post.destroy
+      redirect_to user_path(@user), notice: 'Post was deleted.'
+    else
+      redirect_to user_path(@user), alert: 'Error deleting the post.'
     end
   end
 
