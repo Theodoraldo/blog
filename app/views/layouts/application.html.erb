@@ -15,8 +15,10 @@
     <header>
       <%= render partial: 'layouts/header' %>
     </header>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <div class="is-flex is-justify-content-center">
+      <span class="subtitle has-text-success-dark"><%= notice %></span>
+      <span class="subtitle has-text-danger-dark"><%= alert %></span>
+    </div>
     <%= yield %>
   </body>
 </html>
