@@ -4,4 +4,12 @@
     <span aria-hidden="true"></span>
     <span aria-hidden="true"></span>
   </a>
+
+  <div class="navbar-start has-text-white">
+    <p>Welcome <%= current_user.name %></P>
+  </div>
+
+  <div class="navbar-end">
+    <%= link_to "Sign Out", destroy_user_session_path(@post), method: :delete, data: { "turbo-method": :delete }, class: "button is-small is-primary" %>
+  </div>
 </nav>
