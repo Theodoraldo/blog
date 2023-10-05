@@ -15,7 +15,12 @@
 
     <div class="column has-background-white mb-5 radius-buttom">
       <% @comments.each do |comment| %>
-      <div class="is-italic"><strong><%= comment.author.name %></strong>  : <%= comment.text %></div>
+      <div class="is-flex is-justify-content-space-between">
+        <span class="is-italic"><strong><%= comment.author.name %></strong>  : <%= comment.text %></span>
+        <span>
+        <%= link_to "", comment_path(comment.id), method: :delete, data: { "turbo-method": :delete }, class: "delete is-small" %>
+      </span>
+      </div>
     <% end %>
 
     <%= link_to "Delete this Posts", post_path(@post), method: :delete, data: { "turbo-method": :delete }, class: "button is-small is-danger is-light is-rounded my-3" %>
@@ -33,9 +38,4 @@
 
 <div class="is-flex is-justify-content-center">
   <%= link_to "Back to all posts", user_posts_path(@post.author), class: "button is-info is-light is-outlined is-rounded my-3" %>
-</div>
-
-<div class="is-flex is-justify-content-center">
-  <span class="subtitle has-text-success-dark"><%= notice %></span>
-  <span class="subtitle has-text-danger-dark"><%= alert %></span>
 </div>
